@@ -1,0 +1,70 @@
+.img__select {
+    height: 71px;
+    width: 71px;
+    object-fit: contain;
+}
+
+.title {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    color: #000000;
+    cursor: default;
+}
+
+.description {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    color: #6E6B7B;
+    margin-top: 4px;
+}
+
+.right h3 {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 29px;
+    color: #000000;
+}
+
+.cost {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 29px;
+    color: #000000;
+}
+
+.desc p {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    color: #000000;
+}
+
+.all_desc {
+    color: #6E6B7B !important;
+}
+
+.image__thumb {
+    height: 400px;
+    width: 100%;
+    object-fit: contain;
+}
+
+.flex__column__img img {
+    width: 95px;
+    height: 95px;
+    object-fit: contain;
+}
+
+.no__data {
+    border: 1px dashed #ccc;
+    border-radius: 5px;
+    text-align: center;
+    padding: 100px;
+}

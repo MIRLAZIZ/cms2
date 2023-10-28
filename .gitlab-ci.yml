@@ -1,0 +1,52 @@
+before_script:
+  - "export PROJECT_NAME=ajwa"
+  - "export PROJECT_DIR=/var/www/${PROJECT_NAME}/frontend"
+  - "export BUILD_DIR=/var/www/${PROJECT_NAME}/tmp/${CI_PIPELINE_ID}"
+  - "whoami"
+  - "echo \"Current location:\" `pwd`"
+  - "node --version"
+  - "npm --version"
+
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  script:
+    - "echo \"Current location:\" `pwd`"
+    - "echo \"PROJECT_DIR:\" ${PROJECT_DIR}"
+    - "echo \"PROJECT_DIR:\" ${PROJECT_DIR}"
+    - "echo \"BUILD_DIR:\" ${BUILD_DIR}"
+    - "echo \"BUILD_DIR:\" ${CI_PIPELINE_ID}"
+
+    - "rm -rf ${BUILD_DIR}"
+    - "mkdir -p ${BUILD_DIR}"
+    # Copy project
+    - "cp -r `pwd`/* ${BUILD_DIR}/"
+    - "cp -r `pwd`/.git ${BUILD_DIR}/"
+    - "cp -r `pwd`/.eslintignore ${BUILD_DIR}/"
+    - "cp -r `pwd`/.eslintrc.js ${BUILD_DIR}/"
+    - "cd $BUILD_DIR"
+    - "npm install"
+    - "npm run build"
+  tags:
+    - front_ajwa
+
+deploy:
+  stage: deploy
+  script:
+    - "echo \"Current location:\" `pwd`"
+    - "echo \"PROJECT_DIR:\" ${PROJECT_DIR}"
+    - "echo \"PROJECT_DIR:\" ${PROJECT_DIR}"
+    - "echo \"BUILD_DIR:\" ${BUILD_DIR}"
+    - "echo \"BUILD_DIR:\" ${CI_PIPELINE_ID}"
+
+    - "rm -rf ${PROJECT_DIR}/*"
+    - "cp -r ${BUILD_DIR}/dist ${PROJECT_DIR}/"
+    - "rm -rf ${BUILD_DIR}"
+  only:
+    - main
+  tags:
+    - front_ajwa
+
