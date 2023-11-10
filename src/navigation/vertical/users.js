@@ -11,12 +11,12 @@ export default [
   i18n: 'Users',
   route: 'users',
   icon: 'UserIcon',
-},
-{
-  title: 'create users',
-  i18n: 'Create users',
-  route:'create',
-  icon: 'UserIcon'
 }
+// {
+//   title: 'create users',
+//   i18n: 'Create users',
+//   route:'create',
+//   icon: 'UserIcon'
+// }
 
 ]

@@ -5,15 +5,19 @@
         <b-col cols="12" class="" style="height: auto;">
           <div style="width: 90px; height: 100px;">
             <b-img
-            v-if="url"
+              v-if="url"
               :src="url"
               alt=""
               style="width: 100%; height: 100%;"
               class="rounded"
-             
             />
-            <div v-else class="rounded border d-flex align-items-center justify-content-center" style="width: 90px; height: 100px;">
-              rasm yo'q</div>
+            <div
+              v-else
+              class="rounded border d-flex align-items-center justify-content-center"
+              style="width: 90px; height: 100px;"
+            >
+              rasm yo'q
+            </div>
           </div>
           <!-- <b-form-file
       v-model="user.photo"
@@ -69,7 +73,7 @@
             <validation-provider
               #default="{ errors }"
               name="email"
-              rules="required|email"
+              rules="required"
             >
               <b-form-group label="email">
                 <b-form-input
@@ -91,6 +95,7 @@
             >
               <b-form-group label="telifon nomer">
                 <b-form-input
+                  type="number"
                   v-model="user.phone"
                   :state="errors.length > 0 ? false : null"
                 />
@@ -268,7 +273,18 @@
         </b-row>
       </ValidationObserver>
       <b-row>
-        <b-col cols="12" class="d-flex justify-content-end">
+        <b-col cols="6">
+          <div v-if="error.length" class="border border-danger p-2 w-75">
+            <div class="d-flex justify-content-end">
+              <feather-icon icon="XIcon" class="errorX" @click="error = []" />
+            </div>
+
+            <p v-for="(item, idx) in error" :key="idx" class="text-danger">
+              {{ item }}
+            </p>
+          </div>
+        </b-col>
+        <b-col cols="6" class="d-flex justify-content-end align-items-start">
           <b-button variant="danger">orqaga</b-button>
           <b-button class="ml-2" variant="info" @click="saveUser"
             >saqlash</b-button
@@ -282,6 +298,8 @@
   import vSelect from 'vue-select'
   import { ValidationObserver, ValidationProvider } from 'vee-validate'
   import { required } from '@validations'
+  import FeatherIcon from '@/@core/components/feather-icon/FeatherIcon.vue'
+
   import {
     BInputGroup,
     BFormInput,
@@ -314,6 +332,7 @@
       BInputGroupAppend,
       BFormDatepicker,
       BFormFile,
+      FeatherIcon,
     },
     data() {
       return {
@@ -336,6 +355,7 @@
           phone: null, //
           birthday: null, //
         },
+        error: [],
         url: null,
       }
     },
@@ -366,8 +386,18 @@
                 // this.$router.push('/users')
               })
               .catch(error => {
-                this.$_errorToast(error.response)
-                console.log(error)
+                let errorData = error.response.data.message
+                let data
+                for (let key in errorData) {
+                  for (let i = 0; i < errorData[key].length; i++) {
+                    this.error.push(errorData[key][i])
+                    console.log(errorData[key][i])
+                  }
+
+                  // data = errorData[key];
+                  // console.log(data);
+                }
+                // this.$_errorToast({message:data })
               })
           }
         })
@@ -388,6 +418,9 @@
 </script>
 <style lang="scss">
   @import '@core/scss/vue/pages/page-auth.scss';
+  .errorX {
+    cursor: pointer;
+  }
 </style>
 
 <!-- 
