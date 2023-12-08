@@ -1,4 +1,5 @@
 <template>
+  dfsafasfas
   <b-nav-item-dropdown
     id="dropdown-grouped"
     variant="link"
@@ -25,6 +26,7 @@
         width="22px"
         :alt="localeObj.locale"
       />
+    
       <span class="ml-50">{{ localeObj.name }}</span>
     </b-dropdown-item>
   </b-nav-item-dropdown>

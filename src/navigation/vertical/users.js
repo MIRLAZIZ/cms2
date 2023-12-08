@@ -11,7 +11,11 @@ export default [
   i18n: 'Users',
   route: 'users',
   icon: 'UserIcon',
+  permission: ["client",],
+  
 }
+//i permission how top
+
 // {
 //   title: 'create users',
 //   i18n: 'Create users',

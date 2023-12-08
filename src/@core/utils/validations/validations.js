@@ -68,32 +68,32 @@ export const url = extend('url', {
 })
 
 // Install English and Arabic localizations.
-localize({
-  en: {
-    messages: en.messages,
-    names: {
-      email: 'Email',
-      password: 'Password',
-    },
-    fields: {
-      password: {
-        min: '{_field_} is too short, you want to get hacked?',
-      },
-    },
-  },
-  ar: {
-    messages: ar.messages,
-    names: {
-      email: 'البريد الإلكتروني',
-      password: 'كلمة السر',
-    },
-    fields: {
-      password: {
-        min: 'كلمة السر قصيرة جداً سيتم اختراقك',
-      },
-    },
-  },
-})
+// localize({
+//   en: {
+//     messages: en.messages,
+//     names: {
+//       email: 'Email',
+//       password: 'Password',
+//     },
+//     fields: {
+//       password: {
+//         min: '{_field_} is too short, you want to get hacked?',
+//       },
+//     },
+//   },
+//   ar: {
+//     messages: ar.messages,
+//     names: {
+//       email: 'البريد الإلكتروني',
+//       password: 'كلمة السر',
+//     },
+//     fields: {
+//       password: {
+//         min: 'كلمة السر قصيرة جداً سيتم اختراقك',
+//       },
+//     },
+//   },
+// })
 // ////////////////////////////////////////////////////////
 // NOTE:
 // Quasar validation for reference only

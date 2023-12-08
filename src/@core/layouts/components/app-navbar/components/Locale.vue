@@ -17,7 +17,7 @@
     <b-dropdown-item
       v-for="localeObj in locales"
       :key="localeObj.locale"
-      @click="$i18n.locale = localeObj.locale"
+      @click="changeLocale(localeObj.locale)"
     >
       <b-img
         :src="localeObj.img"
@@ -31,7 +31,7 @@
 </template>
 
 <script>
-  import { BNavItemDropdown, BDropdownItem, BImg} from 'bootstrap-vue'
+  import { BNavItemDropdown, BDropdownItem, BImg, JumbotronPlugin} from 'bootstrap-vue'
   import locales from '@/utils/locales'
   import { getUserData, setUserData } from '@/auth/utils'
   import { mapMutations } from 'vuex'
@@ -46,79 +46,59 @@
       BDropdownItem,
       BImg,
     },
+    data() {
+      return {
+        locales,
+       
+      }
+    },
     // ! Need to move this computed property to comp function once we get to Vue 3
     computed: {
       currentLocale() {
-        let userData = getUserData()
-        if (userData?.language) {
-          this.$i18n.locale = userData.language
-        }
-        return locales.find(l => {
-          return l.locale === this.$i18n.locale
-        })
+        return locales.find(l => l.locale === this.$i18n.locale)
       },
     },
     methods: {
       ...mapMutations(['SET_RE_RENDER_COUNT']),
       async changeLocale(locale) {
-        let userData = getUserData()
+        this.$i18n.locale =locale
+        localize(this.$i18n.locale, this.$i18n.locale === 'uz' ? uz : ru)
 
-        locale = locale || userData?.language || 'ru'
-        this.$i18n.locale = locale
-        localize(locale, locale === 'uz' ? uz : ru)
-        if (!userData) {
-          return locale
-        }
-        let user = {
-          id: userData?.id,
-          language: locale,
-        }
+        // localize(locale, this.$i18n.locale)
+        // let userData = getUserData()
+
+        // locale = locale || userData?.language || 'ru'
+        // this.$i18n.locale = locale
+        // localize(locale, locale === 'uz' ? uz : ru)
+        // if (!userData) {
+        //   return locale
+        // }
+        // let user = {
+        //   id: userData?.id,
+        //   language: locale,
+        // }
 
         // if(userData().language !== this.$i18n.locale) {
-        const newUserData = await this.$store.dispatch(
-          'users/UPDATE_USER_SETTINGS',
-          user,
-        )
-        setUserData(newUserData)
+        // const newUserData = await this.$store.dispatch(
+        //   'users/UPDATE_USER_SETTINGS',
+        //   user,
+        // )
+        // setUserData(newUserData)
 
-        this.$nextTick(() => {
-          this.SET_RE_RENDER_COUNT()
-        })
+        // this.$nextTick(() => {
+        //   this.SET_RE_RENDER_COUNT()
+        // })
 
         // this.$root.$children[0].reRenderApp()
         // } else this.$root.$children[0].reRenderApp()
       },
     },
-    setup() {
-      /* eslint-disable global-require */
-      // const locales = [
-      //   {
-      //     locale: 'en',
-      //     img: require('@/assets/images/flags/en.png'),
-      //     name: 'English',
-      //   },
-      //   {
-      //     locale: 'fr',
-      //     img: require('@/assets/images/flags/fr.png'),
-      //     name: 'French',
-      //   },
-      //   {
-      //     locale: 'de',
-      //     img: require('@/assets/images/flags/de.png'),
-      //     name: 'German',
-      //   },
-      //   {
-      //     locale: 'pt',
-      //     img: require('@/assets/images/flags/pt.png'),
-      //     name: 'Portuguese',
-      //   },
-      // ]
-      /* eslint-disable global-require */
-
-      return {
-        locales,
-      }
+    mounted() {
+      let langData =JSON.parse(localStorage.getItem('userDataTemplate'))
+      this.$i18n.locale = langData.language
+      localize(this.$i18n.locale, this.$i18n.locale === 'uz' ? uz : ru)
     },
+    
   }
 </script>
 
